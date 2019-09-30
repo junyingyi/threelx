@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    
+
+
+    <script src="https://cdn.bootcss.com/three.js/92/three.js"></script>
+
+     <script>
+          let mesh ;
+          //初始化渲染器
+          let  renderer = new THREE.WebGLRenderer();
+          renderer.setSize(window.innerWidth,window.innerHeight) //设置宽高
+          document.body.appendChild(renderer.domElement)  //添加到dom
+
+           //初始化场景
+           let scene = new THREE.Scene()
+
+          //创建一个相机
+          let camere = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 200);
+             camere.position.set(0,0,15) //x ,y ,z
+
+
+
+          //创建一个模型
+          function init() {
+               let geomery = new THREE.BoxGeometry(2,2,2)
+               let material = new THREE.MeshNormalMaterial();//创建一个七彩材质
+               mesh = new THREE.Mesh(geomery,material) ;//创建一个网格
+               scene.add(mesh); //将网格添加到场景中
+          }
+         
+          //运行动画
+          function animate() {
+              //递归循环调用函数
+                requestAnimationFrame(animate);
+                mesh.rotation.x+=0.01; //每帧网格旋转0.01的弧度  半圈是180度
+                mesh.rotation.y+=0.02;
+                renderer.render(scene,camere)  //渲染界面
+          }
+
+     
+            init();
+            animate()
+      
+
+
+     </script>
+
+
+</body>
+</html>
